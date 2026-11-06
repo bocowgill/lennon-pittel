@@ -1,0 +1,112 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
+version: "v0.4"
+
+project:
+  name: "The Lennon–Pittel conjecture on random stable matchings"
+  description: >-
+    We prove the Lennon–Pittel conjecture for balanced stable marriage with
+    independent, uniform strict preferences. Let S_n count the stable complete
+    matchings between two sides of size n. For every positive nonincreasing
+    sequence epsilon_n tending to zero, the probability that S_n is at least
+    epsilon_n times its expectation tends to one. This gives a lower-tail
+    estimate at the scale of Pittel's first-moment asymptotic.
+  authors:
+    - "Bo Cowgill"
+  responsible_maintainers:
+    - "Bo Cowgill"
+  license: "Apache-2.0"
+
+classification:
+  arxiv: ["math.CO", "math.PR"]
+  msc2020: ["05C70", "60C05"]
+
+sources:
+  - title: "Proof of the Lennon–Pittel conjecture on random stable matchings"
+    type: "original-proof"
+    relationship: "other"
+    note: "This project presents a Lean formalization of the proof."
+  - title: "On the Likely Number of Stable Marriages"
+    authors: ["Craig Lennon"]
+    id: "https://etd.ohiolink.edu/acprod/odb_etd/ws/send_file/send?accession=osu1194991095&disposition=inline"
+    location: "The Ohio State University PhD dissertation (2007), §1.2 and Eq. (6.0.1), p. 117"
+    type: "other"
+    relationship: "background"
+    note: "States the conjecture. Chapter 4 gives a two-matching score integral used in the proof."
+  - title: "On the Likely Number of Solutions for the Stable Marriage Problem"
+    authors: ["Craig Lennon", "Boris Pittel"]
+    id: "https://doi.org/10.1017/S0963548308009607"
+    location: "Combinatorics, Probability and Computing 18 (2009), 371–421"
+    type: "paper"
+    relationship: "background"
+    note: "Gives a second-moment estimate and leaves convergence to one open."
+  - title: "The Average Number of Stable Matchings"
+    authors: ["Boris Pittel"]
+    id: "https://doi.org/10.1137/0402048"
+    location: "SIAM Journal on Discrete Mathematics 2 (1989), 530–549"
+    type: "paper"
+    relationship: "background"
+    note: "The first-moment asymptotic is proved in the Lean development and used in the lower-tail proof."
+
+related_formalizations:
+  - id: "https://github.com/google-deepmind/formal-conjectures/commit/d2b6fdbe08ce4ca17d2c7f328f32c27115f5f6d6"
+    relationship: "builds-on"
+    note: "Provides the exact headline statement and the finite StableMarriage model."
+
+status:
+  scope: >-
+    The headline is the lower-tail limit for complete, strict, independent
+    uniform preferences on two sides of equal size. The proof also establishes
+    the same limit for every real threshold sequence tending to zero.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: ["propext", "Quot.sound", "Classical.choice"]
+  main_results:
+    - declaration: "LennonPittel.lennon_pittel_conjecture"
+      file: "Solution.lean"
+      sorry_count: 0
+      axioms: ["propext", "Quot.sound", "Classical.choice"]
+      comparator_config: "comparator.json"
+
+automation:
+  methods:
+    - method: "agent"
+      framework: "OpenAI Codex"
+      tool_setup: >-
+        OpenAI Codex assisted with the Lean formalization of the proof. It also
+        assisted with porting the Lean code, preparing the submission package,
+        and reviewing the formalization.
+  notes: >-
+    Historical model versions, budgets, and prompt records for the original
+    development remain unrecorded in this metadata.
+
+fidelity:
+  divergences: >-
+    The headline retains the source's positivity, monotonicity and limit
+    hypotheses. The Lean model encodes strict rankings as permutations and the
+    random instance as the uniform distribution on the finite profile type.
+    The port constructs the mass function from its constant point masses.
+    This gives the independent uniform law in the source.
+
+review:
+  status: "agent-reviewed"
+  notes: >-
+    Bo Cowgill reviewed the headline statement and submission metadata.
+    The agent review checked the statement and finite model against Lennon's
+    dissertation and confirmed that the headline signature matches Formal
+    Conjectures. A clean warning-strict Lean 4.35.0 build passed. The headline
+    theorem uses only propext, Classical.choice, and Quot.sound. Comparator
+    accepted the Challenge and Solution exports with Lean, NanoDa, and
+    con-ron on macOS in local-export mode with the sandbox disabled.
+
+alignment:
+  namespace: "LennonPittel"
+  statements:
+    - source: "Craig Lennon, On the Likely Number of Stable Marriages, Eq. (6.0.1)"
+      lean: "LennonPittel.lennon_pittel_conjecture"
+      module: "Solution"
+      status: "proved"
+      note: "Challenge states the same declaration independently using the explicit finite model."
+
+acknowledgements: >-
+  The stable-marriage model and formal statement build on Formal Conjectures
+  and its contributors. The development uses Lean and Mathlib.
