@@ -10,6 +10,7 @@ project:
     sequence epsilon_n tending to zero, the probability that S_n is at least
     epsilon_n times its expectation tends to one. This gives a lower-tail
     estimate at the scale of Pittel's first-moment asymptotic.
+    An accompanying working paper is in preparation.
   authors:
     - "Bo Cowgill"
   responsible_maintainers:

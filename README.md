@@ -18,6 +18,8 @@ success probability tends to one. Pittel's first-moment asymptotic puts the
 expectation at scale $n\log n$. [Lennon 2007][thesis] · [Lennon–Pittel 2009][lp]
 · [Pittel 1989][pittel]
 
+An accompanying working paper is in preparation.
+
 ## Formal statement
 
 [Challenge.lean](Challenge.lean) states
